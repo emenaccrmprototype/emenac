@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Travel Admin</h2>
+            </div>
+            <ul>
+                <li><a href="#" class="nav-link active" data-target="home-page"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                <li><a href="#" class="nav-link" data-target="queries-page"><i class="fas fa-question-circle"></i> <span>Queries</span></a></li>
+                <li><a href="#" class="nav-link" data-target="leads-page"><i class="fas fa-user-friends"></i> <span>Leads</span></a></li>
+                <li><a href="#" class="nav-link" data-target="bookings-page"><i class="fas fa-calendar-check"></i> <span>Bookings</span></a></li>
+                <li><a href="#" class="nav-link" data-target="issuance-page"><i class="fas fa-file-invoice-dollar"></i> <span>Issuance Requests</span></a></li>
+                <li><a href="#" class="nav-link" data-target="closing-page"><i class="fas fa-check-circle"></i> <span>Closing Requests</span></a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <div id="home-page" class="page-content">
+                <div class="page-header"><h1>Welcome to Travel Admin Dashboard</h1></div>
+                <p>Select an option from the menu to view data.</p>
+            </div>
+
+            <div id="queries-page" class="page-content hidden">
+                <div class="page-header"><h1>Queries</h1></div>
+                <div class="controls">
+                    <input type="text" id="query-search-input" class="filter-input" placeholder="Search Queries...">
+                    <div class="button-group"><button id="add-query-btn" class="add-btn"><i class="fas fa-plus"></i> Add New Query</button></div>
+                </div>
+                <div class="table-container"><table id="queries-table"><thead><tr><th>Timestamp</th><th>ID</th><th>Agent Email</th><th>Source</th><th>CX Name</th><th>Contact Number</th><th>Email</th><th>Follow Up Date</th><th>Lead Stage</th><th>Remarks</th></tr></thead><tbody></tbody></table></div>
+            </div>
+
+            <div id="add-query-page" class="page-content hidden">
+                <div class="page-header"><h1>Add New Query</h1></div>
+                <form id="add-query-form">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Timestamp</label><input type="text" id="new-query-timestamp" readonly></div>
+                        <div class="form-group"><label>Query ID</label><input type="text" id="new-query-id" readonly></div>
+                        <div class="form-group"><label>Agent Email</label><input type="email" id="new-query-agent" required></div>
+                        <div class="form-group"><label>Source</label><input type="text" id="new-query-source"></div>
+                        <div class="form-group"><label>CX Name</label><input type="text" id="new-query-cx-name" required></div>
+                        <div class="form-group"><label>Contact Number</label><input type="tel" id="new-query-contact"></div>
+                        <div class="form-group full-width"><label>Email</label><input type="email" id="new-query-email"></div>
+                        <div class="form-group"><label>Follow Up Date</label><input type="date" id="new-query-follow-up" required></div>
+                        <div class="form-group"><label>Lead Stage</label><select id="new-query-lead-stage" required><option>Fresh Query</option><option>In-Contact</option><option>Qualified</option><option>Lost</option></select></div>
+                        <div class="form-group full-width"><label>Remarks</label><textarea id="new-query-remarks" rows="4"></textarea></div>
+                    </div>
+                    <div class="form-actions"><button type="button" class="btn-cancel" data-target="queries-page">Cancel</button><button type="submit" class="btn-primary">Save Query</button></div>
+                </form>
+            </div>
+
+            <div id="leads-page" class="page-content hidden">
+                <div class="page-header"><h1>Leads</h1></div>
+                <div class="controls"><input type="text" id="lead-search-input" class="filter-input" placeholder="Search Leads..."></div>
+                <div class="table-container"><table id="leads-table"><thead><tr><th>Timestamp</th><th>ID</th><th>Agent Email</th><th>CX Name</th><th>Product/Service</th><th>Follow Up Date</th><th>Lead Stage</th><th>Remarks</th></tr></thead><tbody></tbody></table></div>
+            </div>
+
+            <div id="promote-lead-page" class="page-content hidden">
+                <div class="page-header"><h1>Create New Lead</h1></div>
+                <form id="promote-lead-form">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Timestamp</label><input type="text" id="lead-timestamp" readonly></div>
+                        <div class="form-group"><label>Query ID</label><input type="text" id="lead-query-id" readonly></div>
+                        <div class="form-group"><label>Agent</label><input type="text" id="lead-agent" readonly></div>
+                        <div class="form-group"><label>Source</label><input type="text" id="lead-source" readonly></div>
+                        <div class="form-group"><label>CX Name</label><input type="text" id="lead-cx-name" readonly></div>
+                        <div class="form-group"><label>Contact Number</label><input type="text" id="lead-contact" readonly></div>
+                        <div class="form-group full-width"><label>Email</label><input type="text" id="lead-email" readonly></div>
+                    </div><hr class="form-divider">
+                    <div class="form-grid">
+                        <div class="form-group"><label for="lead-follow-up">Follow Up Date</label><input type="date" id="lead-follow-up" required></div>
+                        <div class="form-group"><label for="lead-stage">Lead Stage</label><select id="lead-stage" required><option>Fresh Lead</option><option>Follow ups</option><option>Lost</option><option>Booked</option></select></div>
+                        <div class="form-group full-width"><label for="lead-products">Products/Services Offered</label><textarea id="lead-products" rows="3"></textarea></div>
+                        <div class="form-group full-width"><label for="lead-remarks">Remarks</label><textarea id="lead-remarks" rows="3"></textarea></div>
+                    </div>
+                    <div class="form-actions"><button type="button" class="btn-cancel" data-target="queries-page">Cancel</button><button type="submit" class="btn-primary">Create Lead</button></div>
+                </form>
+            </div>
+            
+            <div id="bookings-page" class="page-content hidden">
+                 <div class="page-header"><h1>Bookings Management</h1></div>
+                 <div class="controls"><input type="text" id="booking-search-input" class="filter-input" placeholder="Search Bookings..."></div>
+                <div class="table-container"><table id="bookings-table"><thead><tr><th>Folder No.</th><th>Booking Date</th><th>ID</th><th>Agent</th><th>CX Name</th><th>Contact</th><th>Email</th></tr></thead><tbody></tbody></table></div>
+            </div>
+            
+            <div id="booking-creation-page" class="page-content hidden">
+                <div class="page-header"><h1>Create New Booking</h1></div>
+                <form id="booking-creation-form">
+                    <div class="form-grid"><div class="form-group"><label>Folder No.</label><input type="text" id="booking-folder-no" required></div><div class="form-group"><label>Booking Date</label><input type="text" id="booking-date" readonly></div><div class="form-group"><label>Customer Name</label><input type="text" id="booking-cx-name" required></div></div><hr class="form-divider">
+                    
+                    <div class="dynamic-section"><div class="dynamic-section-header"><h4>Flights</h4><div class="trip-type-selector"><input type="radio" id="one-way" name="tripType" value="one-way" checked><label for="one-way">One Way</label><input type="radio" id="return" name="tripType" value="return"><label for="return">Return</label></div></div><div class="dynamic-row-header flight-row"><span>Airline</span><span>Flight No.</span><span>Dep. From</span><span>Dep. Date</span><span>Arrv. At</span><span>Arrv. Date</span><span>Connecting Flt. No.</span></div><div id="flights-list" class="dynamic-list"><div class="dynamic-row flight-row"><input type="text" class="flight-airline"><input type="text" class="flight-no"><input type="text" class="flight-dep-from"><input type="date" class="flight-dep-date"><input type="text" class="flight-arr-at"><input type="date" class="flight-arr-date"><input type="text" class="flight-conn-no"></div></div></div>
+                    <div class="dynamic-section"><div class="dynamic-section-header"><h4>Hotels</h4><button type="button" class="btn-add-row" data-target="hotels-list">+</button></div><div class="dynamic-row-header hotel-row"><span>Property Name</span><span>Room Type</span><span>Qty</span><span>Guests</span><span>Board</span><span>Check In</span><span>Check Out</span><span>City</span></div><div id="hotels-list" class="dynamic-list"><div class="dynamic-row hotel-row"><input type="text" class="hotel-prop-name"><input type="text" class="hotel-room-type"><input type="number" class="hotel-qty"><input type="number" class="hotel-guests"><select class="hotel-board"><option>BB</option><option>HB</option><option>FB</option><option>AI</option></select><input type="date" class="hotel-checkin"><input type="date" class="hotel-checkout"><input type="text" class="hotel-city"><button type="button" class="btn-remove-row">&times;</button></div></div></div>
+                    <div class="dynamic-section"><div class="dynamic-section-header"><h4>Other Services</h4><button type="button" class="btn-add-row" data-target="others-list">+</button></div><div class="dynamic-row-header other-row"><span>Narration</span><span>No. of PAX</span></div><div id="others-list" class="dynamic-list"><div class="dynamic-row other-row"><input type="text" class="other-narrate"><input type="number" class="other-pax"><button type="button" class="btn-remove-row">&times;</button></div></div></div>
+
+                    <div class="form-actions"><button type="button" class="btn-cancel" data-target="leads-page">Cancel</button><button type="submit" class="btn-primary">Create Booking</button></div>
+                </form>
+            </div>
+            
+            <div id="view-booking-page" class="page-content hidden">
+                <div class="page-header"><h1>Booking Details</h1> <button type="button" class="btn-cancel" data-target="bookings-page">Back to Bookings</button></div>
+                <div id="booking-details-content"></div>
+            </div>
+
+            <div id="comments-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2 id="comment-modal-title">Comments</h2>
+                    <div id="comments-list"></div>
+                    <div class="add-comment-section"><textarea id="new-comment-input" placeholder="Add a new comment..."></textarea><button id="add-comment-btn" class="btn-primary">Add Comment</button></div>
+                </div>
+            </div>
+
+            <div id="issuance-page" class="page-content hidden"><h1>Issuance Requests</h1><p>Content coming soon...</p></div>
+            <div id="closing-page" class="page-content hidden"><h1>Closing Requests</h1><p>Content coming soon...</p></div>
+        </main>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBvovT0GpKzd79k2sj1G2Zm9lP-0U9KxaY",
+            authDomain: "travel-crm-app.firebaseapp.com",
+            projectId: "travel-crm-app",
+            storageBucket: "travel-crm-app.appspot.com",
+            messagingSenderId: "606722420456",
+            appId: "1:606722420456:web:98b17fb422367f3d2b635d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        window.firebaseAuth = getAuth(app);
+        window.firebaseDB = getFirestore(app);
+        window.firebaseStorage = getStorage(app);
+    
+        signInAnonymously(window.firebaseAuth).catch((error) => {
+            console.error("Anonymous sign-in failed:", error);
+        });
+    </script>
+    <script src="script.js" type="module"></script>
+</body>
+</html>
